@@ -12,6 +12,7 @@ values(?,?,?,?,?,?)
 
 const get_all_students = `select * from students`;
 
+const get_students = `select * from students where id=?`;
 const get_student_by_no = `select * from students where enrollment_no=?`;
 
 const update_student = `update students
@@ -64,7 +65,7 @@ where student.enrollment_no=?
 
 const delete_boook = `delete from issue_books where book_name=?`
 
-const get_all_issue_book = `SELECT books.name as student_name,student.enrollment_no, books.department,books.semester,books.contact,books.email,
+const get_all_issue_book = `SELECT books.name as student_name, student.id,student.enrollment_no, books.department,books.semester,books.contact,books.email,
 book.name,books.issue_date,books.return_book
 FROM issue_books books
 JOIN students student
@@ -74,7 +75,7 @@ ON book.id = books.book_name
 `;
 
 const get_all_return_book = `
-SELECT books.name as student_name,student.enrollment_no, books.department,books.semester,books.contact,books.email,
+SELECT books.name as student_name,student.id,student.enrollment_no, books.department,books.semester,books.contact,books.email,
 book.name,books.issue_date,books.return_book
 FROM return_books books
 JOIN students student
@@ -95,6 +96,12 @@ const addStudent = async (data: any) => {
 const getAllStudents = async () => {
   try {
     const result = await pool.query(get_all_students);
+    return result;
+  } catch (e) {}
+};
+const getStudents = async (id:any) => {
+  try {
+    const [result] = await pool.query(get_students,id);
     return result;
   } catch (e) {}
 };
@@ -187,4 +194,5 @@ export default {
   deleteBook,
   getAllIssueBook,
   getAllReturnBook,
+  getStudents,
 };

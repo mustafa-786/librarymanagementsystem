@@ -37,7 +37,30 @@ const addStudent = async (req: Request, res: Response) => {
 
 const getAllStudents = async (req: Request, res: Response) => {
   try {
+   
     const students = await studentService.getAllStudents();
+    
+    if (!students) {
+      return res.status(404).json({
+        code: 404,
+        status: "fail",
+        message: "Bad Request",
+      });
+    }
+    return res.status(200).json({
+      code: 200,
+      status: "success",
+      data: students,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const getStudents = async (req: Request, res: Response) => {
+  try {
+    const {id} = req.params;
+    const students = await studentService.getStudents(id);
 
     if (!students) {
       return res.status(404).json({
@@ -58,7 +81,7 @@ const getAllStudents = async (req: Request, res: Response) => {
 
 const searchStudentByEnrollmentNo = async (req: Request, res: Response) => {
   try {
-    const { enrollment_no = "" } = req.query;
+    const { enrollment_no = "" } = req.body;
 
     const students = await studentService.searchStudentByNo(enrollment_no);
 
@@ -309,4 +332,5 @@ export default {
   getReturnBookByNo,
   getAllIssueBook,
   getAllReturnBook,
+  getStudents,
 };

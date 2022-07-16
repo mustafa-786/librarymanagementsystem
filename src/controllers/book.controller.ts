@@ -57,9 +57,9 @@ const getAllBooks = async (req: Request, res: Response) => {
 
 const searchBookByName = async (req: Request, res: Response) => {
   try {
-    const { name } = req.query;
+    const { id } = req.params;
 
-    const books = await bookService.searchBookByName(name);
+    const books = await bookService.searchBookByName(id);
 
     if (!books) {
       return res.status(404).json({

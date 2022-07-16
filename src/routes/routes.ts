@@ -19,7 +19,7 @@ routes
 .get(bookController.getAllBooks)
 
 routes
-.route('/library/get/bookname')
+.route('/library/get/:id')
 .get(bookController.searchBookByName)
 
 routes
@@ -36,8 +36,13 @@ routes
 .post(studentContoller.addStudent)
 
 routes
-.route('/library/get/student')
+.route('/library/gets/students')
 .get(studentContoller.getAllStudents)
+
+routes
+.route('/library/get/student/:id')
+.get(studentContoller.getStudents)
+
 
 routes
 .route('/library/update/:id/student')
@@ -49,7 +54,7 @@ routes
 
 routes
 .route('/library/get/enrollment')
-.get(studentContoller.searchStudentByEnrollmentNo)
+.post(studentContoller.searchStudentByEnrollmentNo)
 
 
 routes
@@ -65,11 +70,13 @@ routes
 .post(studentContoller.ReturnBook)
 
 routes
-.route('/library/get/issue_books')
+.route('/library/gets/issue_books')
 .get(studentContoller.getAllIssueBook)
 
 routes
-.route('/library/get/return_books')
+.route('/library/gets/return_books')
 .get(studentContoller.getAllReturnBook)
+
+
 
 export default routes           

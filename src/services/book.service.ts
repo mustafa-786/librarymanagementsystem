@@ -6,7 +6,7 @@ values(?,?,?,?,?,?)
 
 const get_all_books = `select * from books`;
 
-const get__book_by_name = `select * from books where name=?`;
+const get__book_by_name = `select * from books where id=?`;
 
 const update_book = `update books
 set name=?,
